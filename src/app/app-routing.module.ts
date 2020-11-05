@@ -5,6 +5,11 @@ import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [{
   path: 'login',
   loadChildren: () => import('./views/login/login.module').then(m => m.LoginModule)
+},
+{
+  path: '',
+  redirectTo: 'login',
+  pathMatch: 'full'
 }];
 
 @NgModule({

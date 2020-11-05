@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
+import { LoginService } from './services/login.service';
 
 @Component({
     selector: 'app-login',
@@ -7,12 +8,18 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 })
 
 export class LoginComponent implements OnInit, OnDestroy {
-    constructor() {
+    login: "Connecting..."
+    constructor(private loginService: LoginService) {
 
     }
 
     ngOnInit() {
 
+        this.loginService.loginBSO.subscribe(data => {
+            this.login = data;
+        })
+
+        this.loginService.test();
     }
 
     ngOnDestroy() {
