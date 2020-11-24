@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Subscription } from 'rxjs';
 import { LoginService } from './services/login.service';
 
 @Component({
@@ -8,14 +9,15 @@ import { LoginService } from './services/login.service';
 })
 
 export class LoginComponent implements OnInit, OnDestroy {
-    login: "Connecting..."
+    login: "Connecting...";
+    loginSub: Subscription;
     constructor(private loginService: LoginService) {
 
     }
 
     ngOnInit() {
 
-        this.loginService.loginBSO.subscribe(data => {
+        this.loginSub = this.loginService.loginBSO.subscribe(data => {
             this.login = data;
         })
 
@@ -23,6 +25,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-
+        if (this.loginSub) {
+            this.loginSub.unsubscribe();
+        }
     }
 }
